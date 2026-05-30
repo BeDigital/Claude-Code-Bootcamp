@@ -1,0 +1,5 @@
+The top-level of this repository contains a `CLAUDE.md` project instructions file, a `SKILL.md` file, and ten numbered module directories (`module-01` through `module-10`). There is no `module-00-prework` directory yet, so I will create it. Each module directory holds self-contained learning units built around Python/FastAPI, with candidates and a promoted winner implementation.
+
+Both runtimes are present and exceed the required minimums. Python is at **3.14.4** (well above 3.11+) and Node.js is at **v22.19.0** (well above 20+).
+
+Pre-work smoke test passed.
