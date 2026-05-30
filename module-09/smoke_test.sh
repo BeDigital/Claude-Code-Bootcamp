@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 # notes-api-smoke — standalone runner
-# Usage: bash smoke_test.sh <module_path> <port>
-# Example: bash smoke_test.sh /path/to/module-09 8099
+# Usage: bash smoke_test.sh <module_path> <port> [app_module]
+# Example: bash smoke_test.sh /path/to/module-09 8099 notes_api
 
 set -euo pipefail
 
 MODULE_PATH="${1:-.}"
 PORT="${2:-8099}"
+APP_MODULE="${3:-notes_api}"
 PASS=0
 FAIL=0
 
 # Start server
 cd "$MODULE_PATH"
-uv run --with fastapi --with uvicorn --with httpx uvicorn notes_api:app --port "$PORT" --log-level warning &
+uv run --no-project --with fastapi --with uvicorn uvicorn "${APP_MODULE}:app" --port "$PORT" --log-level warning &
 SERVER_PID=$!
 trap "kill $SERVER_PID 2>/dev/null; rm -f notes.db" EXIT
 

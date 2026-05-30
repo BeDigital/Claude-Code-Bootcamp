@@ -19,7 +19,7 @@ Verify that a FastAPI notes API is healthy before committing, deploying, or hand
 1. Change into `$MODULE_PATH` (the directory containing `notes_api.py`).
 2. Start the server in the background:
    ```
-   uv run --with fastapi --with uvicorn uvicorn notes_api:app --port $PORT --log-level warning &
+   uv run --no-project --with fastapi --with uvicorn uvicorn $APP_MODULE:app --port $PORT --log-level warning &
    SERVER_PID=$!
    ```
 3. Poll `GET /notes` up to 15 times (0.5 s apart) until the server responds, then proceed.
@@ -61,7 +61,7 @@ PASS=0
 FAIL=0
 
 cd "$MODULE_PATH"
-uv run --with fastapi --with uvicorn uvicorn notes_api:app --port "$PORT" --log-level warning &
+uv run --no-project --with fastapi --with uvicorn uvicorn notes_api:app --port "$PORT" --log-level warning &
 SERVER_PID=$!
 trap "kill $SERVER_PID 2>/dev/null; rm -f notes.db" EXIT
 
