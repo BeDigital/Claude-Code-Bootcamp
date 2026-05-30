@@ -95,6 +95,14 @@ def _fetch_one(conn: sqlite3.Connection, note_id: int) -> sqlite3.Row:
 
 # ---------- routes ----------
 
+@app.get("/health")
+def health_check():
+    """Return 200 with a live DB ping if the service is operational."""
+    with get_db() as conn:
+        conn.execute("SELECT 1")
+    return {"status": "ok", "db": "connected"}
+
+
 @app.post("/notes", status_code=201, response_model=NoteOut)
 def create_note(payload: NoteIn):
     now = _now()
