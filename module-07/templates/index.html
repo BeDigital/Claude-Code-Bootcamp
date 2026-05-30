@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ─────────────────────────────────────────── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border: 2px solid #d4d4a0;
+      padding: 0 24px;
+      height: 64px;
+      flex-shrink: 0;
+    }
+
+    header h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .btn-primary {
+      background: #c8c8e8;
+      border: 1px solid #9999cc;
+      border-radius: 4px;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .btn-primary:hover { background: #b8b8d8; }
+
+    /* ── Outer wrapper (body between header and footer) ─── */
+    .outer {
+      flex: 1;
+      background: #fffff0;
+      border: 2px solid #d4d4a0;
+      border-top: none;
+      border-bottom: none;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ── Main: table + KPI side by side ─────────────────── */
+    .main {
+      border: 1.5px solid #c8c860;
+      background: #fffff5;
+      padding: 16px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .main-label {
+      font-size: 0.75rem;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    /* Table section */
+    .table-section {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .table-box {
+      border: 1.5px solid #c8c860;
+      background: #fffff5;
+      padding: 12px 16px;
+    }
+
+    .table-box-label {
+      font-size: 0.75rem;
+      color: #888;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    thead tr {
+      background: #e8e8f8;
+    }
+
+    th {
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 600;
+      color: #444;
+      border-bottom: 1px solid #c8c8e8;
+    }
+
+    td {
+      padding: 8px 12px;
+      color: #555;
+      border-bottom: 1px solid #eee;
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: #f0f0fa; }
+
+    .row-badge {
+      display: inline-block;
+      background: #c8c8e8;
+      border: 1px solid #9999cc;
+      border-radius: 3px;
+      padding: 2px 8px;
+      font-size: 0.8rem;
+    }
+
+    /* KPI column */
+    .kpi-section {
+      width: 200px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border: 1.5px solid #c8c860;
+      padding: 12px;
+      background: #fffff5;
+    }
+
+    .kpi-card {
+      background: #c8c8e8;
+      border: 1px solid #9999cc;
+      border-radius: 4px;
+      padding: 12px 16px;
+    }
+
+    .kpi-card .kpi-label {
+      font-size: 0.7rem;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .kpi-card .kpi-title {
+      font-size: 0.85rem;
+      color: #333;
+      margin: 2px 0;
+    }
+
+    .kpi-card .kpi-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .kpi-card .kpi-delta {
+      font-size: 0.78rem;
+      color: #4a7;
+      margin-top: 2px;
+    }
+
+    /* ── Sidebar nav ─────────────────────────────────────── */
+    .sidebar {
+      border: 1.5px solid #c8c860;
+      background: #fffff5;
+      padding: 16px;
+    }
+
+    .sidebar-label {
+      font-size: 0.75rem;
+      color: #888;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .nav-items {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-start;
+    }
+
+    .nav-item {
+      background: #c8c8e8;
+      border: 1px solid #9999cc;
+      border-radius: 4px;
+      padding: 8px 20px;
+      font-size: 0.875rem;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .nav-item:hover { background: #b8b8d8; }
+    .nav-item.active {
+      background: #a8a8d8;
+      font-weight: 600;
+    }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      background: #fff;
+      border: 2px solid #d4d4a0;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .footer-badge {
+      background: #c8c8e8;
+      border: 1px solid #9999cc;
+      border-radius: 4px;
+      padding: 4px 16px;
+      font-size: 0.875rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Dashboard</h1>
+    <button class="btn-primary">Primary Action</button>
+  </header>
+
+  <!-- Main outer wrapper -->
+  <div class="outer">
+
+    <!-- Main: table + KPIs -->
+    <div class="main">
+      <div class="table-section">
+        <div class="table-box">
+          <div class="table-box-label">Table</div>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Owner</th>
+                <th>Updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in rows %}
+              <tr>
+                <td><span class="row-badge">Row {{ row.id }}</span></td>
+                <td>{{ row.name }}</td>
+                <td>{{ row.status }}</td>
+                <td>{{ row.owner }}</td>
+                <td>{{ row.updated }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="kpi-section">
+        {% for kpi in kpis %}
+        <div class="kpi-card">
+          <div class="kpi-label">{{ kpi.label }}</div>
+          <div class="kpi-title">{{ kpi.title }}</div>
+          <div class="kpi-value">{{ kpi.value }}</div>
+          <div class="kpi-delta">{{ kpi.delta }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Sidebar nav -->
+    <div class="sidebar">
+      <div class="sidebar-label">Sidebar</div>
+      <div class="nav-items">
+        {% for item in nav %}
+        <div class="nav-item {% if loop.first %}active{% endif %}">{{ item }}</div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-badge">Footer &middot; {{ version }}</span>
+  </footer>
+
+</body>
+</html>

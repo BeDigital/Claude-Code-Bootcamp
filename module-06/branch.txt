@@ -1,0 +1,13 @@
+Branch: feat/module04-notes-api-fastapi-sqlite
+
+git log --oneline (tip to base, branch commits only):
+
+a949d56 feat(module-05): add test suite, bug fixes, and code review rubric
+aee4dd9 docs(module-03): add proof.png showing Claude obeying datetime convention
+0bb758b docs(repo): add CLAUDE.md with stack, conventions, commands, do-not, glossary
+3b0a03e docs(module-06): add git workflow submission artifacts
+faa093f test(module-04): add pytest suite covering all CRUD paths and error codes
+8577d4e feat(module-04): add winning FastAPI notes API with SQLite backend
+ee949bf docs(module-04): record Best-of-N evaluation with both candidates
+999d8b3 feat(module-02): persist task store to JSON
+f04ea7e chore: add .gitignore for Python and macOS artifacts
